@@ -21,19 +21,22 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    // unique:users|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/|
+    // |regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/|
     public function rules()
     {
         return [
             'name' => 'required|max:150|regex:/^[a-zA-Z ]*$/',
-            'email' => 'email|required',
+            'email' => 'email|required|unique:users',
             'image' => 'required|image|mimes:jpg,png|max:300',
-            // 'password'    => 'required|min:8|max:16|mixedCase()|numbers|symbols',
-            'password'    => 'required|min:8|max:16',
-            // 'password'    => 'required|min:8|max:16|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/',
-            // 'password'    => 'required|min:8|max:16|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
-            // 'password'    => 'required|min:8|max:16|regex:/^.(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).*$/',
-            // 'password'    => ['required', 'min:8', 'max:16', mixedCase(), numbers(), symbols()]
+            'password'    => 'required|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'hobbies' => 'required|array|min:2',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'password.regex'   => 'should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character',
+
         ];
     }
 }

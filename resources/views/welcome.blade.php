@@ -7,8 +7,8 @@
     }
 
     img {
-        height: 45px;
-        width: 45px;
+        height: 48px;
+        width: 48px;
     }
 </style>
 <div class="col-md-10 col-12 mx-auto ">
@@ -33,11 +33,13 @@
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        <th scope="row"><img src="{{asset('storage')}}/{{$user->image}}" class="rounded-circle" alt="..."></th>
+                        <th scope="row"><img src="{{asset('storage')}}/{{$user->image}}" class="rounded-circle border" alt="..."></th>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>
-                            {{$user->hobbies}}
+                            @foreach($user->hobbies as $value)
+                            {{$value}},
+                            @endforeach
                         </td>
                         <td>
                             <form action="{{ route('user.destroy',$user->id) }}" class="d-inline" method="POST">

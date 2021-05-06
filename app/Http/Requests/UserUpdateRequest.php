@@ -24,9 +24,10 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:150',
-            'email' => 'email|required',
+            'name' => 'required|max:150|regex:/^[a-zA-Z ]*$/',
+            'email' => 'email|required|unique:users',
             'image' => 'required|image|mimes:jpg,png|max:300',
+            'hobbies' => 'required|array|min:2',
         ];
     }
 }

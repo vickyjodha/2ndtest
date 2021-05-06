@@ -42,11 +42,13 @@ class UserController extends Controller
     {
         $user = new User();
         $user->name = $request->name;
-        $imageName = time() . '.' . $request->image->extension();
-        $user->image = $request->image->storeAs('images', $imageName);
+        // $imageName = time() . '.' . $request->image->extension();
+        $user->image = $request->image->store('images');
+
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->hobbies = json_encode($request->hobbies);
+        // $user->hobbies = json_encode($request->hobbies);
+        $user->hobbies = $request->hobbies;
         // dd($user);
         $user->save();
         return back();
